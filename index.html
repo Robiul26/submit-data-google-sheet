@@ -10,6 +10,7 @@
         * {
             margin: 0;
             padding: 0;
+            font-family: sans-serif;
         }
 
         body {
@@ -18,7 +19,6 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            padding: 20px;
         }
 
         form {
@@ -59,6 +59,18 @@
             height: 40px;
 
         }
+
+        .download-app {
+            text-decoration: none;
+            color: darkgray;
+            font-size: 10px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .download-app {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -75,6 +87,9 @@
             <input type="email" name="email" id="" placeholder="Email..">
             <textarea name="message" id="" rows="5" placeholder="Message.."></textarea>
             <input type="submit" class="submit" id="submit">
+            <a class="download-app"
+                href="https://drive.google.com/file/d/1dUmveDiLH-xr8So9YcHyXNmTiIQn-ZJ9/view?usp=share_link">Download
+                App</a>
         </form>
     </div>
 
