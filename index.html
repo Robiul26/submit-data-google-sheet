@@ -84,17 +84,17 @@
         let form = document.querySelector('form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            n = new Date();
-            y = n.getFullYear();
-            m = n.toLocaleString('en', { month: 'long' });
-            d = n.getDate();
+            date = new Date();
+            y = date.getFullYear();
+            m = date.toLocaleString('en', { month: 'long' });
+            d = date.getDate();
             document.getElementById("date").value = d + " " + m + ", " + y;
+
             document.querySelector('#submit').value = 'Submitting..';
+
             fetch(url, { method: "POST", body: new FormData(form) })
                 .then(res => res.text())
                 .then(data => {
-
-
                     document.querySelector('.message').innerHTML = data;
                     document.querySelector('#submit').value = 'Submit';
                     form.reset();
