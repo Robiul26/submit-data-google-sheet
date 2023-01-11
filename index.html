@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: darkgray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        form {
+            background: #ffffff;
+            width: 350px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            gap: 10px;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            padding-left: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            padding-left: 10px;
+        }
+
+        .message {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <form>
+            <h2>Contact Us</h2>
+            <span class="message"></span>
+            <input type="text" name="name" id="" placeholder="Name..">
+            <input type="tel" name="phone" id="" placeholder="Phone..">
+            <input type="email" name="email" id="" placeholder="Email..">
+            <textarea name="message" id="" rows="5" placeholder="Message.."></textarea>
+            <input type="submit" class="submit" id="submit">
+        </form>
+    </div>
+
+
+    <script>
+        let url = "https://script.google.com/macros/s/AKfycby_T7EXEl9ryncPvggjaByS8MnCrH8SzM4cYWqAoUfWjG3qWhO4KMnKdTwvU8Sk4Pc/exec";
+        let form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.querySelector('#submit').value = 'Submitting..';
+            fetch(url, { method: "POST", body: new FormData(form) })
+                .then(res => res.text())
+                .then(data => {
+                    document.querySelector('.message').innerHTML = data;
+                    document.querySelector('#submit').value = 'Submit';
+                    form.reset();
+                })
+                .catch(err => {
+                    document.querySelector('.message').innerHTML = err;
+                })
+        })
+    </script>
+
+<!-- 1. Goto google sheet/Extensions/App Scripts/ -->
+    <!-- Apps Script in google sheet extensions -->
+    <!-- 
+        const sheets = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1x0G_0NfnOsqqx-chVDgx1aY4G8ZHpn2DEc7zxYxAc0o/edit#gid=0");
+const sheet = sheets.getSheetByName("Sheet1");
+function doPost(e){
+  let data = e.parameter;
+  sheet.appendRow([data.name,data.email,data.message]);
+  return ContentService.createTextOutput("Success!!");
+}
+     -->
+    <!-- 2. Goto Deploy/New Deployment/Deploy -->
+</body>
+
+</html>
