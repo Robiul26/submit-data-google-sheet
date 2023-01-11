@@ -23,7 +23,7 @@
 
         form {
             background: #ffffff;
-            width: 250px;
+            width: 270px;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -48,14 +48,16 @@
         .message {
             color: green;
         }
-        .submit{
+
+        .submit {
             background: green;
             color: #ffffff;
             border: none;
             outline: none;
             border-radius: 5px;
             font-weight: 600;
-          
+            height: 40px;
+
         }
     </style>
 </head>
@@ -65,6 +67,7 @@
         <form>
             <h2>Submit Your Information</h2>
             <span class="message"></span>
+            <input type="hidden" name="date" id="date">
             <input type="text" name="name" id="" placeholder="Name.." required>
             <input type="tel" name="phone" id="" placeholder="Phone.." required>
             <input type="text" name="github" id="" placeholder="Github link..">
@@ -77,7 +80,7 @@
 
 
     <script>
-        let url = "https://script.google.com/macros/s/AKfycby0_Fgjtf0HZ4N0QLtzdT7qUkvz7IkatK2WGSDycn-kKLnCB1iyNivGrZLroH7obTWYeg/exec";
+        let url = "https://script.google.com/macros/s/AKfycbwTJAeVxyc-mcF_YbX-GSHXZVJ-iuGtvfuyNwKDj5Zfq8YyAimdZmAS-6CAwmrstDQQ7A/exec";
         let form = document.querySelector('form');
         form.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -85,6 +88,13 @@
             fetch(url, { method: "POST", body: new FormData(form) })
                 .then(res => res.text())
                 .then(data => {
+                    n = new Date();
+                    y = n.getFullYear();
+                    m = n.toLocaleString('en', { month: 'long' });
+                    d = n.getDate();
+                    document.getElementById("date").value = d + " " + m + ", " + y;
+
+
                     document.querySelector('.message').innerHTML = data;
                     document.querySelector('#submit').value = 'Submit';
                     form.reset();
@@ -95,7 +105,7 @@
         })
     </script>
 
-<!-- 1. Goto google sheet/Extensions/App Scripts/ -->
+    <!-- 1. Goto google sheet/Extensions/App Scripts/ -->
     <!-- Apps Script in google sheet extensions -->
     <!-- 
         const sheets = SpreadsheetApp.openByUrl("https://docs.google.com/spreadsheets/d/1x0G_0NfnOsqqx-chVDgx1aY4G8ZHpn2DEc7zxYxAc0o/edit#gid=0");
